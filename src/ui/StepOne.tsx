@@ -10,20 +10,18 @@ const StyledStepOne = styled.div`
   display: flex;
   align-items: center;
   background-image: url(/images/bg-pentagon.svg);
-  background-size: 400px;
+  background-size: 280px;
   background-repeat: no-repeat;
   background-position: 50%;
   width: 100%;
-  padding: 0 1rem;
 
   @media (min-width: 786px) {
-    /* gap: 3rem; */
-    background-size: 550px;
+    background-size: 450px;
   }
 
-  @media (min-width: 1080px) {
+  /* @media (min-width: 1080px) {
     background-size: 600px;
-  }
+  } */
 `;
 
 const Wrapper = styled.div`
@@ -38,7 +36,7 @@ const Top = styled.div``;
 const Middle = styled.div`
   display: flex;
   align-items: center;
-  gap: 12rem;
+  gap: 10rem;
   @media (min-width: 786px) {
     gap: 18rem;
   }
@@ -52,7 +50,7 @@ const Bottom = styled.div`
   align-items: center;
   justify-content: center;
   gap: 3rem;
-  margin-top: 6rem;
+  margin-top: 4rem;
   @media (min-width: 786px) {
     gap: 5rem;
     margin-top: 8rem;

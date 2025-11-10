@@ -5,8 +5,8 @@ import { useGame } from "../contexts/GameContextProvider";
 
 const StyledCapsule = styled.button`
   position: relative;
-  width: 8rem;
-  height: 8rem;
+  width: 5rem;
+  height: 5rem;
   border-radius: 50%;
   outline: none;
   border: none;
@@ -19,13 +19,13 @@ const StyledCapsule = styled.button`
   );
 
   @media (min-width: 786px) {
-    width: 10rem;
-    height: 10rem;
+    width: 8rem;
+    height: 8rem;
   }
 
   @media (min-width: 1080px) {
-    width: 11rem;
-    height: 11rem;
+    width: 9rem;
+    height: 9rem;
   }
 
   &::after {

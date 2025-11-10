@@ -50,19 +50,19 @@ const Box = styled.div`
 `;
 
 const Circle = styled.div`
-  width: 5rem;
-  height: 5rem;
+  width: 4rem;
+  height: 4rem;
   border-radius: 50%;
   background-color: var(--col-grad-dark);
 
   @media (min-width: 786px) {
-    width: 10rem;
-    height: 10rem;
+    width: 7rem;
+    height: 7rem;
   }
 
   @media (min-width: 1080px) {
-    width: 12rem;
-    height: 12rem;
+    width: 8rem;
+    height: 8rem;
   }
 `;
 
