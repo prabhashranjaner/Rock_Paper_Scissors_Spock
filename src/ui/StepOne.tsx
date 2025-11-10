@@ -18,10 +18,6 @@ const StyledStepOne = styled.div`
   @media (min-width: 786px) {
     background-size: 450px;
   }
-
-  /* @media (min-width: 1080px) {
-    background-size: 600px;
-  } */
 `;
 
 const Wrapper = styled.div`
