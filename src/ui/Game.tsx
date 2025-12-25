@@ -4,8 +4,7 @@ import StepOne from "./StepOne";
 import StepTwo from "./StepTwo";
 import StepThree from "./StepThree";
 import StepFour from "./StepFour";
-
-import { useGame } from "../contexts/GameContextProvider";
+import { useGameState } from "../contexts/useGameState";
 
 const StyledGame = styled.div`
   width: 100%;
@@ -14,10 +13,10 @@ const StyledGame = styled.div`
 `;
 
 const Game = () => {
-  const context = useGame();
-  const {
-    state: { step },
-  } = context!;
+  const state = useGameState();
+
+  const { step } = state;
+
   return (
     <StyledGame>
       {step === 1 && <StepOne />}

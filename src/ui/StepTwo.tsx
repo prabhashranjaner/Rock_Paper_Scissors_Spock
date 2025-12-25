@@ -1,12 +1,14 @@
 import { useEffect } from "react";
-import { useGame } from "../contexts/GameContextProvider";
 import Choice from "./Choice";
 
 import ElementSelect from "./ElementSelect";
 import type { OptionsType } from "../types/gamesTypes";
+import { useGameState } from "../contexts/useGameState";
+import { useGameDispatch } from "../contexts/useGameDospatch";
 
 const StepTwo = () => {
-  const { state, dispatch } = useGame()!;
+  const state = useGameState();
+  const dispatch = useGameDispatch();
 
   useEffect(() => {
     function selectRandomOption() {

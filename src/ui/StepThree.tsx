@@ -1,10 +1,12 @@
 import { useEffect } from "react";
-import { useGame } from "../contexts/GameContextProvider";
 import Choice from "./Choice";
 import ElementSelect from "./ElementSelect";
+import { useGameState } from "../contexts/useGameState";
+import { useGameDispatch } from "../contexts/useGameDospatch";
 
 const StepThree = () => {
-  const { state, dispatch } = useGame()!;
+  const state = useGameState();
+  const dispatch = useGameDispatch();
 
   useEffect(() => {
     const id = setTimeout(() => {

@@ -2,9 +2,9 @@ import styled from "styled-components";
 import Paper from "./Paper";
 import Scissors from "./Scissors";
 import Rock from "./Rock";
-import { useGame } from "../contexts/GameContextProvider";
 import Lizard from "./Lizard";
 import Spock from "./Spock";
+import { useGameDispatch } from "../contexts/useGameDospatch";
 
 const StyledStepOne = styled.div`
   display: flex;
@@ -54,7 +54,7 @@ const Bottom = styled.div`
 `;
 
 const StepOne = () => {
-  const { dispatch } = useGame()!;
+  const dispatch = useGameDispatch()!;
 
   return (
     <StyledStepOne>

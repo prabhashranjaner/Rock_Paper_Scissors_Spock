@@ -1,15 +1,8 @@
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useReducer,
-  type ReactNode,
-} from "react";
-import type { GameContextType } from "../types/gamesTypes";
+import { useEffect, useReducer, type ReactNode } from "react";
 import useLocalStorageState from "../hooks/useLocalStorageState";
 import reducer, { initialState } from "./reducer";
-
-const GameContext = createContext<GameContextType | null>(null);
+import { GameStateContext } from "./useGameState";
+import { GameDispatchContext } from "./useGameDospatch";
 
 export default function GameContextProvider({
   children,
@@ -27,15 +20,10 @@ export default function GameContextProvider({
   }, [state.points, setValue]);
 
   return (
-    <GameContext.Provider value={{ state, dispatch }}>
-      {children}
-    </GameContext.Provider>
+    <GameStateContext.Provider value={state}>
+      <GameDispatchContext.Provider value={dispatch}>
+        {children}
+      </GameDispatchContext.Provider>
+    </GameStateContext.Provider>
   );
-}
-
-// eslint-disable-next-line
-export function useGame() {
-  const context = useContext(GameContext);
-
-  return context;
 }

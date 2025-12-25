@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { LabelSpan } from "../styles/styles";
-import { useGame } from "../contexts/GameContextProvider";
+import { useGameState } from "../contexts/useGameState";
 
 const StyledHeader = styled.header`
   position: absolute;
@@ -78,7 +78,7 @@ const Score = styled.span`
 `;
 
 const Header = () => {
-  const { state } = useGame()!;
+  const state = useGameState()!;
   return (
     <StyledHeader>
       <LogoWrapper>

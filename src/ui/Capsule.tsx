@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Center } from "../styles/styles";
 import type { ReactNode } from "react";
-import { useGame } from "../contexts/GameContextProvider";
+import { useGameState } from "../contexts/useGameState";
 
 const StyledCapsule = styled.button`
   position: relative;
@@ -69,7 +69,7 @@ const ImageWrapper = styled(Center)`
 `;
 
 const Capsule = ({ children, color, handleClick }: PropsType) => {
-  const { state } = useGame()!;
+  const state = useGameState()!;
   return (
     <StyledCapsule
       color={color}

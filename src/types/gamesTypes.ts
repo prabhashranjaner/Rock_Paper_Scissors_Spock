@@ -1,5 +1,3 @@
-import type { Dispatch } from "react";
-
 export type OptionsType = "paper" | "rock" | "scissors" | "lizard" | "spock";
 
 export type GameStateType = {
@@ -20,8 +18,3 @@ export type GameActionType =
   | { type: "step/update"; payload: number }
   | { type: "over" }
   | { type: "update/score"; payload: number };
-
-export type GameContextType = {
-  state: GameStateType;
-  dispatch: Dispatch<GameActionType>;
-};

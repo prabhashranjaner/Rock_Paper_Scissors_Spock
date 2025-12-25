@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import { LabelSpan } from "../styles/styles";
-import { useGame } from "../contexts/GameContextProvider";
 import ElementSelect from "./ElementSelect";
+import { useGameState } from "../contexts/useGameState";
+import { useGameDispatch } from "../contexts/useGameDospatch";
 
 const StyledStepFour = styled.div`
   display: flex;
@@ -87,7 +88,8 @@ const Button = styled.button`
 `;
 
 const StepFour = () => {
-  const { state, dispatch } = useGame()!;
+  const state = useGameState();
+  const dispatch = useGameDispatch();
 
   return (
     <StyledStepFour>

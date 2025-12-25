@@ -1,8 +1,6 @@
 import styled from "styled-components";
-
 import Header from "./ui/Header";
 import Game from "./ui/Game";
-
 import GlobalStyles from "./styles/GlobalStyles";
 import GameContextProvider from "./contexts/GameContextProvider";
 import Rules from "./ui/Rules";
