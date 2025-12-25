@@ -3,6 +3,7 @@ import { LabelSpan } from "../styles/styles";
 import ElementSelect from "./ElementSelect";
 import { useGameState } from "../contexts/useGameState";
 import { useGameDispatch } from "../contexts/useGameDospatch";
+import media from "../styles/media";
 
 const StyledStepFour = styled.div`
   display: flex;
@@ -23,11 +24,11 @@ const ChoiceWrapper = styled.div`
   text-align: center;
   align-items: center;
 
-  @media (min-width: 786px) {
+  ${media.tablet} {
     gap: 2.5rem;
   }
 
-  @media (min-width: 1080px) {
+  ${media.desktop} {
     gap: 3rem;
   }
 `;
@@ -41,16 +42,17 @@ const Result = styled.p`
   font-size: 1.1rem;
   margin-bottom: 0.5rem;
   text-align: center;
-  @media (min-width: 500px) {
+
+  ${media.mobile} {
     font-size: 1.8rem;
     margin-bottom: 0.8rem;
   }
 
-  @media (min-width: 786px) {
+  ${media.tablet} {
     font-size: 2.8rem;
   }
 
-  @media (min-width: 1080px) {
+  ${media.desktop} {
     font-size: 3rem;
   }
 `;
@@ -71,17 +73,17 @@ const Button = styled.button`
     transform: scale(1.02);
   }
 
-  @media (min-width: 500px) {
+  ${media.mobile} {
     font-size: 0.7rem;
     padding: 0.8rem 2rem;
   }
 
-  @media (min-width: 786px) {
+  ${media.tablet} {
     font-size: 1rem;
     padding: 0.8rem 3rem;
   }
 
-  @media (min-width: 1080px) {
+  ${media.desktop} {
     font-size: 1.2rem;
     padding: 1rem 3.2rem;
   }

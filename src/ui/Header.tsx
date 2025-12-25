@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { LabelSpan } from "../styles/styles";
 import { useGameState } from "../contexts/useGameState";
+import media from "../styles/media";
 
 const StyledHeader = styled.header`
   position: absolute;
@@ -8,7 +9,6 @@ const StyledHeader = styled.header`
   left: 50%;
   width: 100%;
   transform: translate(-50%, 0);
-
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -17,12 +17,12 @@ const StyledHeader = styled.header`
   padding: 0.8rem 0.5rem;
   margin: 0 auto;
 
-  @media (min-width: 786px) {
+  ${media.tablet} {
     max-width: 90%;
     padding: 0.8rem 0.8rem;
   }
 
-  @media (min-width: 1080px) {
+  ${media.desktop} {
     max-width: 650px;
   }
 `;
@@ -30,11 +30,11 @@ const StyledHeader = styled.header`
 const LogoWrapper = styled.div`
   height: 70px;
 
-  @media (min-width: 786px) {
+  ${media.tablet} {
     height: 80px;
   }
 
-  @media (min-width: 1080px) {
+  ${media.desktop} {
     height: 90px;
   }
 
@@ -54,11 +54,11 @@ const Scorecard = styled.div`
 const Label = styled(LabelSpan)`
   color: var(--col-blue-dark);
 
-  @media (min-width: 786px) {
+  ${media.tablet} {
     font-size: 18px;
   }
 
-  @media (min-width: 1080px) {
+  ${media.desktop} {
     font-size: 20px;
   }
 `;
@@ -68,11 +68,11 @@ const Score = styled.span`
   font-weight: bold;
   color: var(--col-text);
 
-  @media (min-width: 786px) {
+  ${media.tablet} {
     font-size: 2.8rem;
   }
 
-  @media (min-width: 1080px) {
+  ${media.desktop} {
     font-size: 3rem;
   }
 `;

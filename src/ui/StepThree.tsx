@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-import Choice from "./Choice";
 import ElementSelect from "./ElementSelect";
 import { useGameState } from "../contexts/useGameState";
 import { useGameDispatch } from "../contexts/useGameDospatch";
+import Choice from "../components/Choice/Choice";
 
 const StepThree = () => {
   const state = useGameState();

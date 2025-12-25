@@ -1,9 +1,8 @@
 import styled from "styled-components";
-import { Center } from "../styles/styles";
-import type { ReactNode } from "react";
-import { useGameState } from "../contexts/useGameState";
+import media from "../../styles/media";
+import { Center } from "../../styles/styles";
 
-const StyledCapsule = styled.button`
+export const StyledCapsule = styled.button`
   position: relative;
   width: 5rem;
   height: 5rem;
@@ -18,12 +17,12 @@ const StyledCapsule = styled.button`
     var(--col-${(props) => props.color}-dark)
   );
 
-  @media (min-width: 786px) {
+  ${media.tablet} {
     width: 8rem;
     height: 8rem;
   }
 
-  @media (min-width: 1080px) {
+  ${media.desktop} {
     width: 9rem;
     height: 9rem;
   }
@@ -40,7 +39,7 @@ const StyledCapsule = styled.button`
     transform: translate(-50%, -50%);
     box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.5);
 
-    @media (min-width: 1080px) {
+    ${media.desktop} {
       width: 75%;
       height: 75%;
     }
@@ -59,7 +58,7 @@ const StyledCapsule = styled.button`
   }
 `;
 
-const ImageWrapper = styled(Center)`
+export const ImageWrapper = styled(Center)`
   width: 40%;
   height: 40%;
   z-index: 50;
@@ -67,24 +66,3 @@ const ImageWrapper = styled(Center)`
     object-fit: contain;
   }
 `;
-
-const Capsule = ({ children, color, handleClick }: PropsType) => {
-  const state = useGameState()!;
-  return (
-    <StyledCapsule
-      color={color}
-      disabled={state.step !== 1}
-      onClick={handleClick}
-    >
-      <ImageWrapper>{children}</ImageWrapper>
-    </StyledCapsule>
-  );
-};
-
-export default Capsule;
-
-type PropsType = {
-  children: ReactNode;
-  color: string;
-  handleClick?: () => void | null;
-};

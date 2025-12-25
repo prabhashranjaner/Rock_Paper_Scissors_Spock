@@ -1,10 +1,9 @@
 import { useEffect } from "react";
-import Choice from "./Choice";
-
 import ElementSelect from "./ElementSelect";
 import type { OptionsType } from "../types/gamesTypes";
 import { useGameState } from "../contexts/useGameState";
 import { useGameDispatch } from "../contexts/useGameDospatch";
+import Choice from "../components/Choice/Choice";
 
 const StepTwo = () => {
   const state = useGameState();

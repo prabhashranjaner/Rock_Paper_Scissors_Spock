@@ -1,10 +1,11 @@
 import styled from "styled-components";
-import Paper from "./Paper";
-import Scissors from "./Scissors";
-import Rock from "./Rock";
-import Lizard from "./Lizard";
-import Spock from "./Spock";
+import Paper from "../components/Capsule/Paper";
+import Scissors from "../components/Capsule/Scissors";
+import Rock from "../components/Capsule/Rock";
+import Lizard from "../components/Capsule/Lizard";
+import Spock from "../components/Capsule/Spock";
 import { useGameDispatch } from "../contexts/useGameDospatch";
+import media from "../styles/media";
 
 const StyledStepOne = styled.div`
   display: flex;
@@ -15,7 +16,7 @@ const StyledStepOne = styled.div`
   background-position: 50%;
   width: 100%;
 
-  @media (min-width: 786px) {
+  ${media.tablet} {
     background-size: 450px;
   }
 `;
@@ -33,11 +34,12 @@ const Middle = styled.div`
   display: flex;
   align-items: center;
   gap: 10rem;
-  @media (min-width: 786px) {
+
+  ${media.tablet} {
     gap: 18rem;
   }
 
-  @media (min-width: 1080px) {
+  ${media.desktop} {
     gap: 20rem;
   }
 `;
@@ -47,7 +49,8 @@ const Bottom = styled.div`
   justify-content: center;
   gap: 3rem;
   margin-top: 4rem;
-  @media (min-width: 786px) {
+
+  ${media.tablet} {
     gap: 5rem;
     margin-top: 8rem;
   }
