@@ -89,9 +89,11 @@ const Button = styled.button`
   }
 `;
 
-const StepFour = () => {
+const ResultScreen = () => {
   const state = useGameState();
   const dispatch = useGameDispatch();
+
+  if (state.status !== "result") return null;
 
   return (
     <StyledStepFour>
@@ -102,13 +104,15 @@ const StepFour = () => {
       </ChoiceWrapper>
       <Middle>
         <Result>
-          {state.finalResult === "win"
+          {state.result === "player"
             ? "You Win"
-            : state.finalResult === "lose"
+            : state.result === "computer"
             ? "You Lose"
             : "Draw"}
         </Result>
-        <Button onClick={() => dispatch({ type: "reset" })}>Play Again</Button>
+        <Button onClick={() => dispatch({ type: "round/reset" })}>
+          Play Again
+        </Button>
       </Middle>
       <ChoiceWrapper>
         <ElementSelect option={state.computerChoice} />
@@ -118,4 +122,4 @@ const StepFour = () => {
   );
 };
 
-export default StepFour;
+export default ResultScreen;

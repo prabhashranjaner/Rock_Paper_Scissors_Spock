@@ -56,7 +56,7 @@ const Bottom = styled.div`
   }
 `;
 
-const StepOne = () => {
+const ReadyScreen = () => {
   const dispatch = useGameDispatch()!;
 
   return (
@@ -65,31 +65,31 @@ const StepOne = () => {
         <Top>
           <Scissors
             handleClick={() =>
-              dispatch({ type: "playerChoice/add", payload: "scissors" })
+              dispatch({ type: "player/select", payload: "scissors" })
             }
           />
         </Top>
         <Middle>
           <Spock
             handleClick={() =>
-              dispatch({ type: "playerChoice/add", payload: "spock" })
+              dispatch({ type: "player/select", payload: "spock" })
             }
           />
           <Paper
             handleClick={() =>
-              dispatch({ type: "playerChoice/add", payload: "paper" })
+              dispatch({ type: "player/select", payload: "paper" })
             }
           />
         </Middle>
         <Bottom>
           <Lizard
             handleClick={() =>
-              dispatch({ type: "playerChoice/add", payload: "lizard" })
+              dispatch({ type: "player/select", payload: "lizard" })
             }
           />
           <Rock
             handleClick={() =>
-              dispatch({ type: "playerChoice/add", payload: "rock" })
+              dispatch({ type: "player/select", payload: "rock" })
             }
           />
         </Bottom>
@@ -98,4 +98,4 @@ const StepOne = () => {
   );
 };
 
-export default StepOne;
+export default ReadyScreen;

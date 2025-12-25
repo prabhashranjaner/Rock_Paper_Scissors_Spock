@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
-import StepOne from "./StepOne";
-import StepTwo from "./StepTwo";
-import StepThree from "./StepThree";
-import StepFour from "./StepFour";
 import { useGameState } from "../contexts/useGameState";
+import ReadyScreen from "./ReadyScreen";
+import PlayerChoiceScreen from "./PlayerChoiceScreen";
+import ChoiceRevealScreen from "./ChoiceRevealScreen";
+import ResultScreen from "./ResultScreen";
 
 const StyledGame = styled.div`
   width: 100%;
@@ -15,14 +15,14 @@ const StyledGame = styled.div`
 const Game = () => {
   const state = useGameState();
 
-  const { step } = state;
+  const { status } = state;
 
   return (
     <StyledGame>
-      {step === 1 && <StepOne />}
-      {step === 2 && <StepTwo />}
-      {step === 3 && <StepThree />}
-      {step === 4 && <StepFour />}
+      {status === "ready" && <ReadyScreen />}
+      {status === "playerSelected" && <PlayerChoiceScreen />}
+      {status === "computerRevealed" && <ChoiceRevealScreen />}
+      {status === "result" && <ResultScreen />}
     </StyledGame>
   );
 };

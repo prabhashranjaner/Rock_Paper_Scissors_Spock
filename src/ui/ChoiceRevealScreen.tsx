@@ -4,18 +4,19 @@ import { useGameState } from "../contexts/useGameState";
 import { useGameDispatch } from "../contexts/useGameDospatch";
 import Choice from "../components/Choice/Choice";
 
-const StepThree = () => {
+const ChoiceRevealScreen = () => {
   const state = useGameState();
   const dispatch = useGameDispatch();
 
   useEffect(() => {
     const id = setTimeout(() => {
-      console.log("first");
-      dispatch({ type: "over" });
+      dispatch({ type: "round/resolve" });
     }, 1000);
 
     return () => clearTimeout(id);
   }, [dispatch]);
+
+  if (state.status !== "computerRevealed") return null;
 
   return (
     <Choice
@@ -25,4 +26,4 @@ const StepThree = () => {
   );
 };
 
-export default StepThree;
+export default ChoiceRevealScreen;

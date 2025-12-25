@@ -5,26 +5,36 @@ import { useGameState } from "../contexts/useGameState";
 import { useGameDispatch } from "../contexts/useGameDospatch";
 import Choice from "../components/Choice/Choice";
 
-const StepTwo = () => {
+const PlayerChoiceScreen = () => {
   const state = useGameState();
   const dispatch = useGameDispatch();
 
   useEffect(() => {
-    function selectRandomOption() {
-      const options = ["paper", "rock", "scissors", "spock", "lizard"];
+    if (state.status !== "playerSelected") return;
+
+    function selectRandomOption(): OptionsType {
+      const options: OptionsType[] = [
+        "paper",
+        "rock",
+        "scissors",
+        "spock",
+        "lizard",
+      ];
 
       // Generate a random index
       const randomIndex = Math.floor(Math.random() * options.length);
 
-      return options[randomIndex] as OptionsType;
+      return options[randomIndex];
     }
 
     const id = setTimeout(() => {
-      dispatch({ type: "computerChoice/add", payload: selectRandomOption() });
+      dispatch({ type: "computer/reveal", payload: selectRandomOption() });
     }, 1000);
 
     return () => clearTimeout(id);
-  }, [dispatch]);
+  }, [state.status, dispatch]);
+
+  if (state.status !== "playerSelected") return null;
 
   return (
     <Choice
@@ -34,4 +44,4 @@ const StepTwo = () => {
   );
 };
 
-export default StepTwo;
+export default PlayerChoiceScreen;

@@ -13,7 +13,7 @@ const Capsule = ({ children, color, handleClick }: PropsType) => {
   return (
     <StyledCapsule
       color={color}
-      disabled={state.step !== 1}
+      disabled={state.status !== "ready"}
       onClick={handleClick}
     >
       <ImageWrapper>{children}</ImageWrapper>

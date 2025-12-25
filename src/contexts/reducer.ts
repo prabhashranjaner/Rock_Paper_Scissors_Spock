@@ -4,77 +4,83 @@ import type {
   OptionsType,
 } from "../types/gamesTypes";
 
-function declareResult(playerChoice: OptionsType, computerChoice: OptionsType) {
-  let result = "";
-  if (playerChoice === "rock") {
-    if (computerChoice === "rock") result = "draw";
-    if (computerChoice === "scissors") result = "win";
-    if (computerChoice === "paper") result = "lose";
-    if (computerChoice === "spock") result = "lose";
-    if (computerChoice === "lizard") result = "win";
-  } else if (playerChoice === "scissors") {
-    if (computerChoice === "rock") result = "lose";
-    if (computerChoice === "scissors") result = "draw";
-    if (computerChoice === "paper") result = "win";
-    if (computerChoice === "spock") result = "lose";
-    if (computerChoice === "lizard") result = "win";
-  } else if (playerChoice === "paper") {
-    if (computerChoice === "rock") result = "win";
-    if (computerChoice === "scissors") result = "lose";
-    if (computerChoice === "paper") result = "draw";
-    if (computerChoice === "spock") result = "win";
-    if (computerChoice === "lizard") result = "lose";
-  } else if (playerChoice === "lizard") {
-    if (computerChoice === "rock") result = "lose";
-    if (computerChoice === "scissors") result = "lose";
-    if (computerChoice === "paper") result = "win";
-    if (computerChoice === "spock") result = "win";
-    if (computerChoice === "lizard") result = "draw";
-  } else {
-    if (computerChoice === "rock") result = "win";
-    if (computerChoice === "scissors") result = "win";
-    if (computerChoice === "paper") result = "lose";
-    if (computerChoice === "spock") result = "draw";
-    if (computerChoice === "lizard") result = "lose";
-  }
+const rules: Record<OptionsType, OptionsType[]> = {
+  rock: ["scissors", "lizard"],
+  paper: ["rock", "spock"],
+  scissors: ["paper", "lizard"],
+  lizard: ["paper", "spock"],
+  spock: ["rock", "scissors"],
+};
 
-  return result;
+function declareResult(playerChoice: OptionsType, computerChoice: OptionsType) {
+  if (playerChoice === computerChoice) return "tie";
+  if (rules[playerChoice].includes(computerChoice)) return "player";
+
+  return "computer";
 }
 
 export const initialState: GameStateType = {
-  playerChoice: null,
-  computerChoice: null,
   points: 0,
-  step: 1,
-  finalResult: "",
+  status: "ready",
 };
 
 export default function reducer(state: GameStateType, action: GameActionType) {
-  switch (action.type) {
-    case "playerChoice/add":
-      return { ...state, playerChoice: action.payload, step: 2 };
+  switch (state.status) {
+    case "ready": {
+      if (action.type !== "player/select") return state;
 
-    case "computerChoice/add":
-      return { ...state, computerChoice: action.payload, step: 3 };
-
-    case "step/update":
-      return { ...state, step: action.payload };
-    case "update/score":
-      return { ...state, points: action.payload };
-
-    case "over": {
-      let newScore: number = state.points;
-      const result = declareResult(state.playerChoice!, state.computerChoice!);
-      if (result === "win") newScore = state.points + 1;
-      if (result === "lose") newScore = state.points - 1;
-
-      return { ...state, step: 4, finalResult: result, points: newScore };
+      return {
+        status: "playerSelected",
+        playerChoice: action.payload,
+        points: state.points,
+      };
     }
 
-    case "reset":
-      return { ...initialState, points: state.points };
+    case "playerSelected": {
+      if (action.type !== "computer/reveal") return state;
+      return {
+        status: "computerRevealed",
+        points: state.points,
+        playerChoice: state.playerChoice,
+        computerChoice: action.payload,
+      };
+    }
+
+    case "computerRevealed": {
+      if (action.type !== "round/resolve") return state;
+
+      const result = declareResult(state.playerChoice, state.computerChoice);
+
+      const updatedPoints =
+        result === "player"
+          ? state.points + 1
+          : result === "computer"
+          ? state.points - 1
+          : state.points;
+
+      return {
+        status: "result",
+        points: updatedPoints,
+        playerChoice: state.playerChoice,
+        computerChoice: state.computerChoice,
+        result,
+      };
+    }
+
+    case "result": {
+      if (action.type !== "round/reset") return state;
+
+      return {
+        status: "ready",
+        points: state.points,
+      };
+    }
 
     default:
-      return state;
+      return assertNever(state); // <-- exhaustiveness guard
   }
+}
+
+function assertNever(x: never): never {
+  throw new Error(`Unhandled case: ${x}`);
 }

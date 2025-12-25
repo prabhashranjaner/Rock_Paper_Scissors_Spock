@@ -1,20 +1,48 @@
 export type OptionsType = "paper" | "rock" | "scissors" | "lizard" | "spock";
 
-export type GameStateType = {
+export type StatusType =
+  | "ready"
+  | "playerSelected"
+  | "computerRevealed"
+  | "result";
+
+type ReadyState = {
+  status: "ready";
   points: number;
-  playerChoice: null | OptionsType;
-  computerChoice: null | OptionsType;
-  step: number;
-  finalResult: string;
 };
+
+type PlayerSelectedState = {
+  status: "playerSelected";
+  points: number;
+  playerChoice: OptionsType;
+};
+
+type ComputerRevealedState = {
+  status: "computerRevealed";
+  points: number;
+  playerChoice: OptionsType;
+  computerChoice: OptionsType;
+};
+
+type ResultState = {
+  status: "result";
+  points: number;
+  playerChoice: OptionsType;
+  computerChoice: OptionsType;
+  result: "player" | "computer" | "tie";
+};
+
+export type GameStateType =
+  | ReadyState
+  | PlayerSelectedState
+  | ComputerRevealedState
+  | ResultState;
 
 export type GameActionType =
   | {
-      type: "playerChoice/add";
+      type: "player/select";
       payload: OptionsType;
     }
-  | { type: "computerChoice/add"; payload: OptionsType }
-  | { type: "reset" }
-  | { type: "step/update"; payload: number }
-  | { type: "over" }
-  | { type: "update/score"; payload: number };
+  | { type: "computer/reveal"; payload: OptionsType }
+  | { type: "round/resolve" }
+  | { type: "round/reset" };
