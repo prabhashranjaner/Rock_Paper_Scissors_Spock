@@ -58,55 +58,72 @@ function declareResult(
 
 export const initialState: GameStateType = {
   points: 0,
-  status: "ready",
-  mode: "extended",
+  status: "ready" as const,
+  mode: "extended" as const,
 };
 
 export default function reducer(state: GameStateType, action: GameActionType) {
   switch (state.status) {
     case "ready": {
-      if (action.type === "mode/change")
-        return { ...state, mode: action.payload };
+      if (action.type === "player/select") {
+        if (state.mode === "classic") {
+          return {
+            status: "playerSelected",
+            mode: "classic",
+            points: state.points,
+            playerChoice: action.payload as ClassicOptionType,
+          } as const;
+        }
 
-      if (action.type === "player/select")
         return {
           status: "playerSelected",
-          playerChoice: action.payload,
+          mode: "extended",
           points: state.points,
-          mode: state.mode,
-        };
+          playerChoice: action.payload as ExtendedOptionType,
+        } as const;
+      }
+
+      if (action.type === "mode/change") {
+        return {
+          status: "ready",
+          mode: action.payload,
+          points: state.points,
+        } as const;
+      }
 
       return state;
     }
 
     case "playerSelected": {
-      if (action.type !== "computer/reveal") return state;
-      return {
-        status: "computerRevealed",
-        mode: state.mode,
-        points: state.points,
-        playerChoice: state.playerChoice,
-        computerChoice: action.payload,
-      };
+      if (action.type === "computer/reveal") {
+        if (state.mode === "classic") {
+          return {
+            status: "computerRevealed",
+            mode: "classic",
+            points: state.points,
+            playerChoice: state.playerChoice as ClassicOptionType,
+            computerChoice: action.payload as ClassicOptionType,
+          } as const;
+        } else {
+          return {
+            status: "computerRevealed",
+            mode: "extended",
+            points: state.points,
+            playerChoice: state.playerChoice as ExtendedOptionType,
+            computerChoice: action.payload as ExtendedOptionType,
+          } as const;
+        }
+      }
+
+      return state;
     }
 
     case "computerRevealed": {
       if (action.type !== "round/resolve") return state;
-      let result: ResultType;
-
-      if (state.mode === "classic") {
-        result = declareResult(
-          "classic",
-          state.playerChoice as ClassicOptionType,
-          state.computerChoice as ClassicOptionType
-        );
-      }
-
-      result = declareResult(
-        "extended",
-        state.playerChoice as ExtendedOptionType,
-        state.computerChoice as ExtendedOptionType
-      );
+      const result =
+        state.mode === "classic"
+          ? declareResult("classic", state.playerChoice, state.computerChoice)
+          : declareResult("extended", state.playerChoice, state.computerChoice);
 
       const updatedPoints =
         result === "player"
@@ -115,14 +132,25 @@ export default function reducer(state: GameStateType, action: GameActionType) {
           ? state.points - 1
           : state.points;
 
-      return {
-        status: "result",
-        mode: state.mode,
-        points: updatedPoints,
-        playerChoice: state.playerChoice,
-        computerChoice: state.computerChoice,
-        result,
-      };
+      if (state.mode === "classic") {
+        return {
+          status: "result",
+          mode: state.mode,
+          points: updatedPoints,
+          playerChoice: state.playerChoice,
+          computerChoice: state.computerChoice,
+          result,
+        } as const;
+      } else {
+        return {
+          status: "result",
+          mode: state.mode,
+          points: updatedPoints,
+          playerChoice: state.playerChoice,
+          computerChoice: state.computerChoice,
+          result,
+        } as const;
+      }
     }
 
     case "result": {
@@ -131,14 +159,14 @@ export default function reducer(state: GameStateType, action: GameActionType) {
           status: "ready",
           mode: action.payload,
           points: state.points,
-        };
+        } as const;
 
       if (action.type === "round/reset")
         return {
           status: "ready",
           points: state.points,
           mode: state.mode,
-        };
+        } as const;
 
       return state;
     }
