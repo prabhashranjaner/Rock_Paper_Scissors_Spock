@@ -1,15 +1,17 @@
 import styled from "styled-components";
-import Header from "./ui/Header";
+import Header from "./ui/Header/Header";
 import Game from "./ui/Game";
 import GlobalStyles from "./styles/GlobalStyles";
-import Rules from "./ui/Rules";
 import media from "./styles/media";
+import Footer from "./ui/Footer/Footer";
 
 const Container = styled.div`
   margin: 0 auto;
   max-width: 90dvw;
-  position: relative;
-  height: 100dvh;
+  min-height: 95dvh;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 
   ${media.tablet} {
     max-width: 90%;
@@ -24,13 +26,21 @@ const Container = styled.div`
   }
 `;
 
+const MainStyle = styled.main`
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+`;
+
 function App() {
   return (
     <Container>
       <GlobalStyles />
       <Header />
-      <Game />
-      <Rules />
+      <MainStyle>
+        <Game />
+      </MainStyle>
+      <Footer />
     </Container>
   );
 }

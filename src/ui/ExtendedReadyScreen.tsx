@@ -6,6 +6,7 @@ import Lizard from "../components/Capsule/Lizard";
 import Spock from "../components/Capsule/Spock";
 import { useGameDispatch } from "../contexts/useGameDospatch";
 import media from "../styles/media";
+import type { ExtendedOptionType } from "../types/gamesTypes";
 
 const StyledStepOne = styled.div`
   display: flex;
@@ -56,46 +57,33 @@ const Bottom = styled.div`
   }
 `;
 
-const ReadyScreen = () => {
-  const dispatch = useGameDispatch()!;
+const ExtendedReadyScreen = () => {
+  const dispatch = useGameDispatch();
+
+  const select = (choice: ExtendedOptionType) =>
+    dispatch({
+      type: "player/select",
+      mode: "extended",
+      payload: choice,
+    });
 
   return (
     <StyledStepOne>
       <Wrapper>
         <Top>
-          <Scissors
-            handleClick={() =>
-              dispatch({ type: "player/select", payload: "scissors" })
-            }
-          />
+          <Scissors handleClick={() => select("scissors")} />
         </Top>
         <Middle>
-          <Spock
-            handleClick={() =>
-              dispatch({ type: "player/select", payload: "spock" })
-            }
-          />
-          <Paper
-            handleClick={() =>
-              dispatch({ type: "player/select", payload: "paper" })
-            }
-          />
+          <Spock handleClick={() => select("spock")} />
+          <Paper handleClick={() => select("paper")} />
         </Middle>
         <Bottom>
-          <Lizard
-            handleClick={() =>
-              dispatch({ type: "player/select", payload: "lizard" })
-            }
-          />
-          <Rock
-            handleClick={() =>
-              dispatch({ type: "player/select", payload: "rock" })
-            }
-          />
+          <Lizard handleClick={() => select("lizard")} />
+          <Rock handleClick={() => select("rock")} />
         </Bottom>
       </Wrapper>
     </StyledStepOne>
   );
 };
 
-export default ReadyScreen;
+export default ExtendedReadyScreen;

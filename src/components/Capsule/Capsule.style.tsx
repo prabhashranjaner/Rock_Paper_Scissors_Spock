@@ -1,11 +1,31 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import media from "../../styles/media";
 import { Center } from "../../styles/styles";
 
-export const StyledCapsule = styled.button`
+const sizes = {
+  normal: css`
+    width: 5rem;
+    height: 5rem;
+
+    ${media.tablet} {
+      width: 7rem;
+      height: 7rem;
+    }
+  `,
+  large: css`
+    width: 8rem;
+    height: 8rem;
+
+    ${media.tablet} {
+      width: 9rem;
+      height: 9rem;
+    }
+  `,
+};
+
+export const StyledCapsule = styled.button<{ $size: "normal" | "large" }>`
+  ${({ $size }) => sizes[$size]}
   position: relative;
-  width: 5rem;
-  height: 5rem;
   border-radius: 50%;
   outline: none;
   border: none;
@@ -16,16 +36,6 @@ export const StyledCapsule = styled.button`
     var(--col-${(props) => props.color}-light),
     var(--col-${(props) => props.color}-dark)
   );
-
-  ${media.tablet} {
-    width: 8rem;
-    height: 8rem;
-  }
-
-  ${media.desktop} {
-    width: 9rem;
-    height: 9rem;
-  }
 
   &::after {
     content: "";

@@ -1,14 +1,8 @@
 import styled from "styled-components";
-import { LabelSpan } from "../styles/styles";
-import { useGameState } from "../contexts/useGameState";
-import media from "../styles/media";
+import media from "../../styles/media";
+import { LabelSpan } from "../../styles/styles";
 
-const StyledHeader = styled.header`
-  position: absolute;
-  top: 10px;
-  left: 50%;
-  width: 100%;
-  transform: translate(-50%, 0);
+export const StyledHeader = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -16,6 +10,7 @@ const StyledHeader = styled.header`
   border-radius: 10px;
   padding: 0.8rem 0.5rem;
   margin: 0 auto;
+  width: 100%;
 
   ${media.tablet} {
     max-width: 90%;
@@ -27,7 +22,7 @@ const StyledHeader = styled.header`
   }
 `;
 
-const LogoWrapper = styled.div`
+export const LogoWrapperStyle = styled.div`
   height: 70px;
 
   ${media.tablet} {
@@ -42,7 +37,8 @@ const LogoWrapper = styled.div`
     object-fit: contain;
   }
 `;
-const Scorecard = styled.div`
+
+export const ScorecardStyle = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0.5rem 1.5rem;
@@ -51,7 +47,7 @@ const Scorecard = styled.div`
   text-align: center;
 `;
 
-const Label = styled(LabelSpan)`
+export const LabelStyle = styled(LabelSpan)`
   color: var(--col-blue-dark);
 
   ${media.tablet} {
@@ -63,7 +59,7 @@ const Label = styled(LabelSpan)`
   }
 `;
 
-const Score = styled.span`
+export const ScoreStyle = styled.span`
   font-size: 2rem;
   font-weight: bold;
   color: var(--col-text);
@@ -76,21 +72,3 @@ const Score = styled.span`
     font-size: 3rem;
   }
 `;
-
-const Header = () => {
-  const state = useGameState()!;
-  return (
-    <StyledHeader>
-      <LogoWrapper>
-        <img alt="logo" src="/images/logo-bonus.svg" />
-      </LogoWrapper>
-
-      <Scorecard>
-        <Label>Score</Label>
-        <Score>{state.points}</Score>
-      </Scorecard>
-    </StyledHeader>
-  );
-};
-
-export default Header;

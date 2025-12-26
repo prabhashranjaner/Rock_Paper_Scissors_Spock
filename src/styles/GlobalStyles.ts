@@ -30,13 +30,11 @@ const GlobalStyles = createGlobalStyle`
 }
 
 body{
-    min-height: 100dvh;
     font-family: "Barlow Semi Condensed", sans-serif;
     background-image: var(--col-grad);
     color: white;
     padding: 1.2rem;
-     text-transform: uppercase;
-     overflow: hidden;
+    text-transform: uppercase;
 }
 
   img {

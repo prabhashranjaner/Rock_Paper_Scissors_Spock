@@ -1,9 +1,22 @@
 import { useEffect } from "react";
 import ElementSelect from "./ElementSelect";
-import type { OptionsType } from "../types/gamesTypes";
 import { useGameState } from "../contexts/useGameState";
 import { useGameDispatch } from "../contexts/useGameDospatch";
 import Choice from "../components/Choice/Choice";
+import type {
+  ClassicOptionType,
+  ExtendedOptionType,
+  GameModeType,
+} from "../types/gamesTypes";
+
+const classicOptions = ["rock", "paper", "scissors"] as const;
+const extendedOptions = [
+  "rock",
+  "paper",
+  "scissors",
+  "lizard",
+  "spock",
+] as const;
 
 const PlayerChoiceScreen = () => {
   const state = useGameState();
@@ -12,27 +25,34 @@ const PlayerChoiceScreen = () => {
   useEffect(() => {
     if (state.status !== "playerSelected") return;
 
-    function selectRandomOption(): OptionsType {
-      const options: OptionsType[] = [
-        "paper",
-        "rock",
-        "scissors",
-        "spock",
-        "lizard",
-      ];
+    function selectRandomOption(mode: "classic"): ClassicOptionType;
+    function selectRandomOption(mode: "extended"): ExtendedOptionType;
+    function selectRandomOption(mode: GameModeType) {
+      const options = mode === "classic" ? classicOptions : extendedOptions;
 
-      // Generate a random index
       const randomIndex = Math.floor(Math.random() * options.length);
 
       return options[randomIndex];
     }
 
     const id = setTimeout(() => {
-      dispatch({ type: "computer/reveal", payload: selectRandomOption() });
+      if (state.mode === "classic") {
+        dispatch({
+          type: "computer/reveal",
+          mode: "classic",
+          payload: selectRandomOption("classic"),
+        });
+      } else {
+        dispatch({
+          type: "computer/reveal",
+          mode: "extended",
+          payload: selectRandomOption("extended"),
+        });
+      }
     }, 1000);
 
     return () => clearTimeout(id);
-  }, [state.status, dispatch]);
+  }, [state.status, dispatch, state.mode]);
 
   if (state.status !== "playerSelected") return null;
 

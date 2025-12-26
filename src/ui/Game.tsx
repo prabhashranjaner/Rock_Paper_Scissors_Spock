@@ -1,29 +1,23 @@
-import styled from "styled-components";
-
 import { useGameState } from "../contexts/useGameState";
-import ReadyScreen from "./ReadyScreen";
 import PlayerChoiceScreen from "./PlayerChoiceScreen";
 import ChoiceRevealScreen from "./ChoiceRevealScreen";
 import ResultScreen from "./ResultScreen";
-
-const StyledGame = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-`;
+import ExtendedReadyScreen from "./ExtendedReadyScreen";
+import ClassicReadyScreen from "./ClassicReadyScreen";
 
 const Game = () => {
   const state = useGameState();
 
-  const { status } = state;
+  const { status, mode } = state;
 
   return (
-    <StyledGame>
-      {status === "ready" && <ReadyScreen />}
+    <>
+      {status === "ready" && mode === "classic" && <ClassicReadyScreen />}
+      {status === "ready" && mode === "extended" && <ExtendedReadyScreen />}
       {status === "playerSelected" && <PlayerChoiceScreen />}
       {status === "computerRevealed" && <ChoiceRevealScreen />}
       {status === "result" && <ResultScreen />}
-    </StyledGame>
+    </>
   );
 };
 
