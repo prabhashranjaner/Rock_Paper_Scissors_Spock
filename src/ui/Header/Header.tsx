@@ -13,7 +13,7 @@ const Header = () => {
     <StyledHeader>
       <LogoWrapperStyle>
         {state.mode === "classic" ? (
-          <img alt="logo" src="/public/images/logo.svg" />
+          <img alt="logo" src="/images/logo.svg" />
         ) : (
           <img alt="logo" src="/images/logo-bonus.svg" />
         )}

@@ -1,9 +1,8 @@
 import { useState } from "react";
-
 import { ButtonStyle, FooterStyle } from "./Footer.style";
 import { useGameDispatch } from "../../contexts/useGameDospatch";
 import { useGameState } from "../../contexts/useGameState";
-import Modal from "../Modal";
+import Modal from "../Modal/Modal";
 
 const Footer = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -28,7 +27,9 @@ const Footer = () => {
         </ButtonStyle>
       )}
 
-      {isModalOpen && <Modal handleClose={() => setIsModalOpen(false)} />}
+      {isModalOpen && (
+        <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      )}
     </FooterStyle>
   );
 };
